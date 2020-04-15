@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "Koana Méteo Service"
+  description: "Les prévisions météorologiques actuelles."
+
+paths:
+  /meteo/actuelle:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                  x-profile: "http://supermodel.io/superface/weather/profile/WeatherAlerts#RetrieveAlert/addressLocality"
+                  example: 'Var'
+              required: 
+                - city    
+
+      responses:
+        "200":
+          description: >
+            Weather alerts for the given locality
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  caption:
+                    type: string
+                    x-profile: "http://supermodel.io/superface/weather/profile/WeatherAlerts#title"
+
+                  detail:
+                    type: string
+                    x-profile: "http://supermodel.io/superface/weather/profile/WeatherAlerts#description"
+
+                  level:
+                    type: string
+                    x-profile: "http://supermodel.io/superface/weather/profile/WeatherAlerts#severity"
+
+                  start:
+                    type: string
+                    x-profile: "http://supermodel.io/superface/weather/profile/WeatherAlerts#startDate"
+
+                  end:
+                    type: string
+                    x-profile: "http://supermodel.io/superface/weather/profile/WeatherAlerts#endDate"
+
+                example:
+                  caption: Thor and Thunder
+                  detail: >-
+                    Hammers will fall
+                  level: advisory
+                  start: "2019-12-9T16:24:08Z"
+                  end: "2019-11-14T16:24:08Z"
+
+      x-profile: "http://supermodel.io/superface/weather/profile/WeatherAlerts#RetrieveAlert"
